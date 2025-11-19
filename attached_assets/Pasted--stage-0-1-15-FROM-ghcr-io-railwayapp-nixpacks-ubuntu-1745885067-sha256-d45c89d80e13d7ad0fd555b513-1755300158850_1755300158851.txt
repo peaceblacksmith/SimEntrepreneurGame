@@ -1,0 +1,122 @@
+[stage-0  1/15] FROM ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de  ✔ 8 msn
+
+[internal] load build context  ✔ 46 msn
+
+[stage-0  2/15] WORKDIR /app/  ✔ 0 msn – CACHED
+
+[stage-0  3/15] COPY .nixpacks/nixpkgs-ba913eda2df8eb72147259189d55932012df6301.nix .nixpacks/nixpkgs-ba913eda2df8eb72147259189d55932012df6301.nix  ✔ 0 msn – CACHED
+
+[stage-0  4/15] RUN nix-env -if .nixpacks/nixpkgs-ba913eda2df8eb72147259189d55932012df6301.nix && nix-collect-garbage -d  ✔ 0 msn – CACHED
+
+[stage-0  5/15] COPY .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix  ✔ 0 msn – CACHED
+
+[stage-0  6/15] RUN nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d  ✔ 0 msn – CACHED
+
+[stage-0  7/15] COPY .nixpacks/assets /assets/  ✔ 0 msn – CACHED
+
+[stage-0  8/15] COPY . /app/.
+
+[stage-0  8/15] COPY . /app/.  ✔ 462 msn
+
+[stage-0  9/15] RUN  caddy fmt --overwrite /assets/Caddyfile
+
+[stage-0  9/15] RUN  caddy fmt --overwrite /assets/Caddyfile  ✔ 187 msn
+
+[stage-0 10/15] COPY . /app/.
+
+[stage-0 10/15] COPY . /app/.  ✔ 82 msn
+
+[stage-0 11/15] RUN --mount=type=cache,id=s/74f40e25-a3e5-4d21-b1e7-9061224d5018-/root/npm,target=/root/.npm npm ci
+
+npm warn config production Use `--omit=dev` instead.
+
+npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+
+npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+
+npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+
+
+added 634 packages, and audited 635 packages in 9s
+
+
+87 packages are looking for funding
+  run `npm fund` for details
+
+
+5 moderate severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+[stage-0 11/15] RUN --mount=type=cache,id=s/74f40e25-a3e5-4d21-b1e7-9061224d5018-/root/npm,target=/root/.npm npm ci  ✔ 9 sn.
+
+[stage-0 12/15] COPY . /app/.
+
+[stage-0 12/15] COPY . /app/.  ✔ 152 msn
+
+[stage-0 13/15] RUN --mount=type=cache,id=s/74f40e25-a3e5-4d21-b1e7-9061224d5018-node_modules/cache,target=/app/node_modules/.cache npm run build
+
+npm warn config production Use `--omit=dev` instead.
+
+
+> rest-express@1.0.0 build
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+
+vite v5.4.19 building for production...
+
+transforming...
+
+✓ 1859 modules transformed.
+
+rendering chunks...
+
+computing gzip size...
+
+../dist/public/index.html                   0.80 kB │ gzip:   0.50 kB
+
+../dist/public/assets/index-eWiUZ2Gi.css   66.24 kB │ gzip:  11.82 kB
+
+../dist/public/assets/index-BXOsY5Hj.js   590.25 kB │ gzip: 168.22 kB
+
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+
+✓ built in 3.74s
+
+
+  dist/index.js  49.1kb
+
+⚡ Done in 5ms
+
+[stage-0 13/15] RUN --mount=type=cache,id=s/74f40e25-a3e5-4d21-b1e7-9061224d5018-node_modules/cache,target=/app/node_modules/.cache npm run build  ✔ 4 sn.
+
+[stage-0 14/15] RUN printf '\nPATH=/app/node_modules/.bin:$PATH' >> /root/.profile
+
+[stage-0 14/15] RUN printf '\nPATH=/app/node_modules/.bin:$PATH' >> /root/.profile  ✔ 156 msn
+
+[stage-0 15/15] COPY . /app
+
+[stage-0 15/15] COPY . /app  ✔ 29 msn
+
+importing to docker
+
+[auth] sharing credentials for production-europe-west4-drams3a.railway-registry.com
+
+[auth] sharing credentials for production-europe-west4-drams3a.railway-registry.com  ✔ 0 msn
+
+importing to docker  ✔ 9 sn.
+
+=== Successfully Built! ===
+
+Run:
+
+docker run -it production-europe-west4-drams3a.railway-registry.com/74f40e25-a3e5-4d21-b1e7-9061224d5018:89971509-8907-497c-bfec-c9c171ac725a
+
+Build time: 50.51 seconds

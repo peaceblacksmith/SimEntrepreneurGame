@@ -1,0 +1,121 @@
+[Region: europe-west4]
+
+==============
+
+Using Nixpacks
+
+==============
+
+
+context: 6w5x-t0j_
+
+╔═════════════════════ Nixpacks v1.38.0 ═════════════════════╗
+
+║ setup      │ nodejs_18, npm-9_x, openssl                   ║
+
+║────────────────────────────────────────────────────────────║
+
+║ caddy      │ pkgs: caddy                                   ║
+
+║            │ cmds: caddy fmt --overwrite /assets/Caddyfile ║
+
+║────────────────────────────────────────────────────────────║
+
+║ install    │ npm ci                                        ║
+
+║────────────────────────────────────────────────────────────║
+
+║ build      │ npm run build                                 ║
+
+║────────────────────────────────────────────────────────────║
+
+║ start      │ node server/simple-production.cjs             ║
+
+╚════════════════════════════════════════════════════════════╝
+
+[internal] load build definition from Dockerfile
+
+[internal] load build definition from Dockerfile  ✔ 0 msn
+
+[internal] load build definition from Dockerfile
+
+[internal] load build definition from Dockerfile  ✔ 10 msn
+
+[internal] load metadata for ghcr.io/railwayapp/nixpacks:ubuntu-1745885067
+
+[internal] load metadata for ghcr.io/railwayapp/nixpacks:ubuntu-1745885067  ✔ 135 msn
+
+[internal] load .dockerignore
+
+[internal] load .dockerignore  ✔ 0 msn
+
+[internal] load .dockerignore
+
+[internal] load .dockerignore  ✔ 9 msn
+
+[internal] load build context  ✔ 0 msn
+
+[internal] load build context
+
+[internal] load build context  ✔ 120 msn
+
+[stage-0  2/10] WORKDIR /app/  ✔ 0 msn – CACHED
+
+[stage-0  3/15] COPY .nixpacks/nixpkgs-ba913eda2df8eb72147259189d55932012df6301.nix .nixpacks/nixpkgs-ba913eda2df8eb72147259189d55932012df6301.nix  ✔ 0 msn – CACHED
+
+[stage-0  4/15] RUN nix-env -if .nixpacks/nixpkgs-ba913eda2df8eb72147259189d55932012df6301.nix && nix-collect-garbage -d  ✔ 0 msn – CACHED
+
+[stage-0  5/15] COPY .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix  ✔ 0 msn – CACHED
+
+[stage-0  6/15] RUN nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d  ✔ 0 msn – CACHED
+
+[stage-0  7/15] COPY .nixpacks/assets /assets/  ✔ 0 msn – CACHED
+
+[stage-0  8/15] COPY . /app/.
+
+[stage-0  8/15] COPY . /app/.  ✔ 90 msn
+
+[stage-0  9/15] RUN  caddy fmt --overwrite /assets/Caddyfile
+
+[stage-0  9/15] RUN  caddy fmt --overwrite /assets/Caddyfile  ✔ 183 msn
+
+[stage-0 10/15] COPY . /app/.
+
+[stage-0 10/15] COPY . /app/.  ✔ 105 msn
+
+[stage-0 11/15] RUN --mount=type=cache,id=s/74f40e25-a3e5-4d21-b1e7-9061224d5018-/root/npm,target=/root/.npm npm ci
+
+npm warn config production Use `--omit=dev` instead.
+
+npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+
+npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+
+npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+
+
+added 634 packages, and audited 635 packages in 7s
+
+
+
+87 packages are looking for funding
+
+  run `npm fund` for details
+
+
+5 moderate severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+[stage-0 11/15] RUN --mount=type=cache,id=s/74f40e25-a3e5-4d21-b1e7-9061224d5018-/root/npm,target=/root/.npm npm ci  ✔ 6 sn.
+
+[stage-0 12/15] COPY . /app/.
+
+[stage-0 12/15] COPY . /app/.  ✔ 181 msn
+
+[stage-0 13/15] RUN --mount=type=cache,id=s/74f40e25-a3e5-4d21-b1e7-9061224d5018-node_modules/cache,target=/app/node_modules/.cache npm run build
+
+npm warn config production Use `--omit=dev` instead.

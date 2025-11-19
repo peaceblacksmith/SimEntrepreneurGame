@@ -1,0 +1,87 @@
+Design Component Extraction Guide
+Visual Design Elements
+Color Palette
+Primary Background: #1b1b1b (Dark charcoal)
+Text Primary: #e3dfd6 (Light cream)
+Text Secondary: #1b1b1b (Dark on light backgrounds)
+Accent Color: #cae304e6 (Bright lime green with opacity)
+Button Color: #aa95c7 (Purple/lavender)
+Typography
+Primary Font: 'Bowlby One' (Bold display font)
+Secondary Font: 'Inter' (Clean sans-serif)
+Hero Text: 96px (text-8xl)
+Quote Text: 80px
+Navigation: 24px (text-2xl)
+Social Media: 32px
+Layout Structure
+Header: Fixed top navigation with logo and CTA button
+Hero Section: Large centered text with call-to-action
+Main Visual: Central image/graphic section
+Quote Section: Testimonial card with contact info
+Footer: Social media links
+Reusable Components
+1. Header Component
+<header className="flex w-full items-end justify-between p-8">
+  <h1 className="[font-family:'Bowlby_One',Helvetica] font-normal text-[#e3dfd6] text-2xl">
+    {brandName}
+  </h1>
+  <nav className="flex items-end gap-10">
+    <div className="[font-family:'Bowlby_One',Helvetica] font-normal text-[#1b1b1b] text-2xl">
+      {navLabel}
+    </div>
+    <Button className="h-[50px] px-6 py-0 bg-[#aa95c7] rounded-lg">
+      <span className="[font-family:'Bowlby_One',Helvetica] font-normal text-[#1b1b1b] text-2xl">
+        {ctaText}
+      </span>
+    </Button>
+  </nav>
+</header>
+2. Hero Section Component
+<section className="text-center">
+  <h2 className="[font-family:'Bowlby_One',Helvetica] font-normal text-[#e3dfd6] text-8xl leading-[80px]">
+    {heroText}
+  </h2>
+</section>
+3. Quote Card Component
+<Card className="bg-[#cae304e6] rounded-[25px] border-none">
+  <CardContent className="flex items-start justify-between p-20">
+    <blockquote className="[font-family:'Bowlby_One',Helvetica] font-normal text-[#1b1b1b] text-[80px] leading-[70px]">
+      {quoteText}
+    </blockquote>
+    <div className="contact-info">
+      {contactInfo}
+    </div>
+  </CardContent>
+</Card>
+4. Social Media Footer
+<footer className="flex items-center gap-[50px]">
+  {socialLinks.map((social, index) => (
+    <div key={index} className="flex items-center">
+      <div className="w-[60px] h-[60px] relative flex items-center justify-center">
+        <img src={social.icon} alt={social.alt} />
+      </div>
+      <span className="ml-[10px] [font-family:'Inter',Helvetica] font-semibold text-[#e3dfd6] text-[32px]">
+        {social.handle}
+      </span>
+    </div>
+  ))}
+</footer>
+Asset Requirements
+Logo/brand graphics
+Hero image/illustration
+Social media icons
+Contact information graphics
+Background textures/patterns (if any)
+Customization Points
+Brand Name: Replace "KALGIRISIMCILIK"
+Hero Message: Replace Turkish text with new message
+Quote/Testimonial: Update quote and contact info
+Social Media: Update handles and icons
+Color Scheme: Adjust colors while maintaining contrast
+Typography: Keep font hierarchy, optionally change fonts
+Technical Setup Required
+React + TypeScript
+Tailwind CSS
+shadcn/ui components
+Custom font loading (Bowlby One, Inter)
+Asset management for images/icons

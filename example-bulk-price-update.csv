@@ -1,0 +1,21 @@
+type,name,new_price
+stock,Apple Inc.,175.50
+stock,Microsoft Corporation,380.25
+stock,Amazon.com Inc.,145.75
+stock,Google (Alphabet),142.80
+stock,Tesla Inc.,248.90
+stock,Meta Platforms,485.60
+stock,NVIDIA Corporation,875.30
+stock,Netflix Inc.,455.20
+stock,Adobe Inc.,625.40
+stock,Salesforce Inc.,285.15
+currency,ABD Doları,34.85
+currency,Euro,37.92
+currency,İngiliz Sterlini,43.28
+currency,Japon Yeni,0.23
+currency,İsviçre Frangı,38.54
+currency,Kanada Doları,25.67
+currency,Avustralya Doları,22.18
+currency,Çin Yuanı,4.82
+currency,Rus Rublesi,0.35
+currency,Güney Kore Wonu,0.025

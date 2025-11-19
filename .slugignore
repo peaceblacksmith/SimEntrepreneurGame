@@ -1,0 +1,13 @@
+node_modules/.cache
+*.log
+uploads/
+.git/
+.replit
+.nix
+.cache
+attached_assets/
+server/index.ts
+server/vite.ts
+server/routes.ts
+server/storage.ts
+server/config.ts

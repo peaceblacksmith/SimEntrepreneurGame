@@ -1,0 +1,27 @@
+<div style="width: 1440px; height: 1810px; position: relative; background: #1B1B1B; overflow: hidden">
+  <div style="width: 1440px; padding: 32px; left: 0px; top: 0px; position: absolute; justify-content: space-between; align-items: flex-end; display: inline-flex">
+    <div style="width: 348px; height: 47px; color: #E3DFD6; font-size: 24px; font-family: Bowlby One; font-weight: 400; word-wrap: break-word">KALGIRISIMCILIK</div>
+    <div style="width: 397px; justify-content: flex-start; align-items: flex-end; gap: 40px; display: flex">
+      <div style="width: 148px; height: 47px; color: #1B1B1B; font-size: 24px; font-family: Bowlby One; font-weight: 400; word-wrap: break-word">HAKKINDA</div>
+      <div data-state="enabled" style="height: 50px; padding-left: 24px; padding-right: 24px; background: var(--liloş, #AA95C7); border-radius: 8px; justify-content: center; align-items: center; gap: 10px; display: flex">
+        <div style="text-align: center; color: #1B1B1B; font-size: 24px; font-family: Bowlby One; font-weight: 400; word-wrap: break-word">GIRIS YAP </div>
+      </div>
+    </div>
+  </div>
+  <div style="width: 1352px; height: 79px; left: 44px; top: 114px; position: absolute; text-align: center; color: #E3DFD6; font-size: 128px; font-family: Inter; font-weight: 900; text-transform: uppercase; line-height: 100px; word-wrap: break-word">Kazanmaya cesaretin var mı?</div>
+  <div style="width: 260px; height: 223px; left: 388px; top: 741px; position: absolute; transform: rotate(180deg); transform-origin: top left; outline: 6px #AA95C7 solid; outline-offset: -3px"></div>
+  <div style="width: 260px; height: 223px; left: 1089px; top: 518px; position: absolute; outline: 6px #CBED46 solid; outline-offset: -3px"></div>
+  <div style="width: 1364px; padding: 80px; left: 38px; top: 1109px; position: absolute; background: rgba(202, 227, 4, 0.90); border-radius: 25px; justify-content: space-between; align-items: center; display: inline-flex">
+    <div style="width: 650px; color: #1B1B1B; font-size: 96px; font-family: Inter; font-weight: 900; text-transform: uppercase; line-height: 79px; word-wrap: break-word">"Bir karar, her seyi degistirir."</div>
+    <div style="width: 524px; height: 201px; text-align: right; justify-content: center; display: flex; flex-direction: column; color: #1B1B1B; font-size: 32px; font-family: Inter; font-weight: 600; line-height: 40px; word-wrap: break-word">defnecebiroglu@gmail.com<br/>iremcebiroglu@gmail.com<br/>eylllllltasirtaon@gmail.com</div>
+  </div>
+  <div style="width: 60px; height: 60px; left: 329px; top: 1619px; position: absolute; overflow: hidden">
+    <div style="width: 44px; height: 44px; left: 8px; top: 8px; position: absolute; background: #E3DFD6"></div>
+  </div>
+  <div style="width: 60px; height: 60px; left: 812px; top: 1619px; position: absolute; overflow: hidden">
+    <div style="width: 48px; height: 48px; left: 6px; top: 6px; position: absolute; background: #E3DFD6"></div>
+  </div>
+  <div style="width: 403px; height: 39px; left: 399px; top: 1629px; position: absolute; justify-content: center; display: flex; flex-direction: column; color: #E3DFD6; font-size: 32px; font-family: Inter; font-weight: 600; line-height: 40px; word-wrap: break-word">@kalgirisimcilik_</div>
+  <div style="width: 403px; height: 39px; left: 882px; top: 1629px; position: absolute; justify-content: center; display: flex; flex-direction: column; color: #E3DFD6; font-size: 32px; font-family: Inter; font-weight: 600; line-height: 40px; word-wrap: break-word">@kalgirisimcilik</div>
+  <img style="width: 1306px; height: 776px; left: 93px; top: 316px; position: absolute" src="https://placehold.co/1306x776" />
+</div

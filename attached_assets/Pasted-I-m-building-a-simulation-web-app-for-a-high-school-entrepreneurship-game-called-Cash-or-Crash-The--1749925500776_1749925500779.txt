@@ -1,0 +1,67 @@
+I’m building a simulation web app for a high school entrepreneurship game called Cash or Crash.
+The game allows multiple teams to manage their own virtual finances across 3 main areas:
+
+💼 Stock Market Desk:
+Each team sees their net balance at the top (cash they hold).
+
+A section shows the stocks they currently own: company name, number of shares, dividend %, and total value.
+
+A second section lists 10 companies in total, showing each one’s name, logo, price, dividend %, and a short description.
+
+I want to be able to add/edit these companies (with logo upload) from an admin panel.
+
+Admin should also be able to assign shares to teams, change share quantities, or simulate selling (remove shares, add cash).
+
+💱 Currency Desk:
+Very similar to the stock desk.
+
+Top part shows currencies owned by the team (e.g., USD, EUR).
+
+Bottom part lists 5 total currencies and their current rates.
+
+Admin should be able to:
+
+Add new currencies (with name, logo, exchange rate)
+
+Update currency rates anytime
+
+Assign currency amounts to teams
+
+Allow selling currencies manually
+
+🚀 Startup Desk:
+Each team can have one startup idea shown here.
+
+Admin can enter a startup title and value for each team.
+
+No interaction needed — just a read-only display for the team.
+
+👨‍💼 Admin Panel:
+The admin panel must include:
+
+Company management: add/edit 10 companies, upload logos, edit dividend % and prices
+
+Currency management: add/edit 5 currencies, upload logos, update rates
+
+Team management: assign stock amounts, currency amounts, and startup idea for each team
+
+Ability to simulate selling shares or currencies (remove from team, add cash)
+
+👥 Team Dashboard:
+Each team should have a simple dashboard showing only their own info.
+
+They can switch between the three desks (stock, currency, startup).
+
+Teams do not need to input anything. Only view their data.
+
+🔧 Tech Preference:
+Backend: FastAPI
+
+Frontend: HTML (or React if preferred)
+
+File upload for logos (companies & currencies)
+
+Data can be stored in memory or as mock data at first
+
+Please help me structure this step-by-step. Start with mock data, then build the backend and minimal front-end.
+
