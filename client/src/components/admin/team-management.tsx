@@ -206,11 +206,13 @@ export function TeamManagement() {
     setManagementType("startup");
     startupForm.reset({
       teamId: startup.teamId,
-      name: startup.name,
-      description: startup.description,
-      value: startup.value,
-      industry: startup.industry,
-      riskLevel: startup.riskLevel,
+      name: startup.name ?? "",
+      description: startup.description ?? "",
+      value: startup.value ?? "",
+      industry: startup.industry ?? "",
+      riskLevel: startup.riskLevel ?? "",
+    });
+
     });
     setIsStartupListDialogOpen(false);
     setIsDialogOpen(true);
@@ -218,7 +220,7 @@ export function TeamManagement() {
 
   const handleSellStartup = async (startup: TeamStartup) => {
     const startupValue = parseFloat(startup.value).toLocaleString('tr-TR', { minimumFractionDigits: 2 });
-    if (window.confirm(`"${startup.name}" girişimini satmak istediğinizden emin misiniz?\n\n₺${startupValue} takımın nakit bakiyesine eklenecek.`)) {
+    if (window.confirm(`"${startup?.name ?? "Girişim"}" girişimini satmak istediğinizden emin misiniz?\n\n₺${startupValue} takımın nakit bakiyesine eklenecek.`)) {
       deleteStartupMutation.mutate(startup.id);
     }
   };
@@ -256,7 +258,7 @@ export function TeamManagement() {
           <Card key={team.id}>
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
-                {team.name}
+                {team?.name ?? "İsimsiz takım"}
                 <div className="flex space-x-2">
                   <Button
                     variant="outline"
@@ -300,7 +302,7 @@ export function TeamManagement() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>
-              {selectedTeam?.name} - Girişim Yönetimi
+              {selectedTeam?.name ?? "Takım"} - Girişim Yönetimi
             </DialogTitle>
           </DialogHeader>
           
@@ -311,7 +313,7 @@ export function TeamManagement() {
                   <CardTitle className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <Briefcase className="h-5 w-5" />
-                      {teamPortfolio.startup.name}
+                      {teamPortfolio?.startup?.name ?? "İsimsiz girişim"}
                     </div>
                     <div className="flex gap-2">
                       <Button
@@ -394,7 +396,7 @@ export function TeamManagement() {
         <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle>
-              {selectedTeam?.name} Yönetimi - {managementType === "stocks" ? "Hisseler" : managementType === "currencies" ? "Dövizler" : editingStartup ? "Girişim Düzenle" : "Yeni Girişim"}
+              {selectedTeam?} Yönetimi - {managementType === "stocks" ? "Hisseler" : managementType === "currencies" ? "Dövizler" : editingStartup ? "Girişim Düzenle" : "Yeni Girişim"}
             </DialogTitle>
           </DialogHeader>
           
@@ -416,7 +418,7 @@ export function TeamManagement() {
                         <SelectContent>
                           {companies?.map((company) => (
                             <SelectItem key={company.id} value={company.id.toString()}>
-                              {company.name}
+                              {company?.name ?? "İsimsiz şirket"}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -463,7 +465,7 @@ export function TeamManagement() {
                         <SelectContent>
                           {currencies?.map((currency) => (
                             <SelectItem key={currency.id} value={currency.id.toString()}>
-                              {currency.name} ({currency.code})
+                              {currency?.name ?? "Döviz"} ({currency?.code ?? ""})
                             </SelectItem>
                           ))}
                         </SelectContent>
