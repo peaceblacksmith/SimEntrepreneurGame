@@ -11,10 +11,21 @@ import { Plus, Edit, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
 import { createCurrency, updateCurrency, deleteCurrency } from "@/lib/api";
-import { insertCurrencySchema, type Currency } from "@shared/schema";
+import { type Currency } from "@shared/schema";
 import { z } from "zod";
 
-const currencyFormSchema = insertCurrencySchema.extend({
+// Form schema for creating/updating currencies in the admin UI.
+// Backend will derive sellRate from rate; we only collect name, code, rate and optional logo.
+const currencyFormSchema = z.object({
+  name: z.string().min(1, "Currency name is required"),
+  code: z.string().min(1, "Currency code is required"),
+  rate: z
+    .string()
+    .min(1, "Rate is required")
+    .refine((val: string) => {
+      const n = parseFloat(val);
+      return !isNaN(n) && n > 0;
+    }, "Rate must be a positive number"),
   logo: z.instanceof(FileList).optional(),
 });
 
@@ -38,7 +49,6 @@ export function CurrencyManagement() {
       name: "",
       code: "",
       rate: "",
-      sellRate: "",
     },
   });
 
@@ -48,6 +58,11 @@ export function CurrencyManagement() {
       formData.append("name", data.name);
       formData.append("code", data.code);
       formData.append("rate", data.rate);
+       // insertCurrencySchema on the backend requires sellRate as well,
+       // so we derive it from the buy rate with a 2% spread.
+       const rateValue = parseFloat(data.rate);
+       const sellRate = (rateValue * 0.98).toFixed(6);
+       formData.append("sellRate", sellRate);
       if (data.logo && data.logo.length > 0) {
         formData.append("logo", data.logo[0]);
       }
