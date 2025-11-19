@@ -206,11 +206,11 @@ export function TeamManagement() {
     setManagementType("startup");
     startupForm.reset({
       teamId: startup.teamId,
-      name: startup.name ?? "",
-      description: startup.description ?? "",
-      value: startup.value ?? "",
-      industry: startup.industry ?? "",
-      riskLevel: startup.riskLevel ?? "",
+      name: startup.name || "",
+      description: startup.description || "",
+      value: startup.value || "",
+      industry: startup.industry || "",
+      riskLevel: startup.riskLevel || "",
     });
 
     });
@@ -219,11 +219,21 @@ export function TeamManagement() {
   };
 
   const handleSellStartup = async (startup: TeamStartup) => {
-    const startupValue = parseFloat(startup.value).toLocaleString('tr-TR', { minimumFractionDigits: 2 });
-    if (window.confirm(`"${startup?.name ?? "Girişim"}" girişimini satmak istediğinizden emin misiniz?\n\n₺${startupValue} takımın nakit bakiyesine eklenecek.`)) {
-      deleteStartupMutation.mutate(startup.id);
-    }
-  };
+  const startupValue = parseFloat(startup.value).toLocaleString("tr-TR", {
+    minimumFractionDigits: 2,
+  });
+
+  const startupName = startup?.name || "Girişim";
+
+  const message =
+    `${startupName} girişimini satmak istediğinizden emin misiniz?\n\n` +
+    `₺${startupValue} takımın nakit bakiyesine eklenecek.`;
+
+  if (window.confirm(message)) {
+    deleteStartupMutation.mutate(startup.id);
+  }
+};
+
 
   const onSubmitStock = (data: z.infer<typeof teamStockFormSchema>) => {
     createStockMutation.mutate(data);
