@@ -20,6 +20,9 @@ export function FinancialOverview() {
 
   const { data: teams, isLoading } = useQuery<Team[]>({
     queryKey: ["/api/teams"],
+    refetchInterval: 1500,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
   });
 
   const adjustCashMutation = useMutation({

@@ -28,6 +28,9 @@ export function CompanyManagement() {
 
   const { data: companies, isLoading } = useQuery<Company[]>({
     queryKey: ["/api/companies"],
+    refetchInterval: 1500,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
   });
 
   const form = useForm<CompanyFormData>({

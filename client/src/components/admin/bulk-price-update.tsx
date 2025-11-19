@@ -63,10 +63,16 @@ currency,İsviçre Frangı,38.54`;
 
   const { data: companies } = useQuery<Company[]>({
     queryKey: ["/api/companies"],
+    refetchInterval: 1500,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
   });
 
   const { data: currencies } = useQuery<Currency[]>({
     queryKey: ["/api/currencies"],
+    refetchInterval: 1500,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
   });
 
   // Initialize editable price data when companies/currencies load

@@ -41,10 +41,15 @@ export default function StockMarketDesk({ onTabChange }: StockMarketDeskProps) {
   const { data: portfolio, isLoading: portfolioLoading } = useQuery<TeamPortfolioResponse>({
     queryKey: [`/api/teams/${teamId}/portfolio`],
     enabled: !!teamId,
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: companies, isLoading: companiesLoading } = useQuery<Company[]>({
     queryKey: ["/api/companies"],
+    refetchInterval: 1500,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
   });
 
   if (portfolioLoading || companiesLoading) {

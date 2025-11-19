@@ -27,6 +27,9 @@ export function CurrencyManagement() {
 
   const { data: currencies, isLoading } = useQuery<Currency[]>({
     queryKey: ["/api/currencies"],
+    refetchInterval: 1500,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
   });
 
   const form = useForm<CurrencyFormData>({

@@ -12,10 +12,15 @@ export function CurrencyDesk({ teamId }: CurrencyDeskProps) {
   const { data: portfolio, isLoading: portfolioLoading } = useQuery<TeamPortfolio>({
     queryKey: ["/api/teams", teamId, "portfolio"],
     queryFn: () => getTeamPortfolio(teamId),
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: currencies, isLoading: currenciesLoading } = useQuery<Currency[]>({
     queryKey: ["/api/currencies"],
+    refetchInterval: 1500,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
   });
 
   if (portfolioLoading || currenciesLoading) {

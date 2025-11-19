@@ -49,6 +49,8 @@ export default function CurrencyTradingDesk({ onTabChange }: CurrencyTradingDesk
   const { data: portfolioData, isLoading: portfolioLoading } = useQuery<TeamPortfolioAPI>({
     queryKey: [`/api/teams/${teamId}/portfolio`],
     enabled: !!teamId,
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
   });
 
 
@@ -63,6 +65,9 @@ export default function CurrencyTradingDesk({ onTabChange }: CurrencyTradingDesk
 
   const { data: currencies, isLoading: currenciesLoading } = useQuery<Currency[]>({
     queryKey: ['/api/currencies'],
+    refetchInterval: 1500,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
   });
 
   if (portfolioLoading || currenciesLoading) {

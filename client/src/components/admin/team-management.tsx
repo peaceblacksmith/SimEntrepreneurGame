@@ -31,20 +31,31 @@ export function TeamManagement() {
 
   const { data: teams, isLoading: teamsLoading } = useQuery<Team[]>({
     queryKey: ["/api/teams"],
+    refetchInterval: 1500,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
   });
 
   const { data: companies } = useQuery<Company[]>({
     queryKey: ["/api/companies"],
+    refetchInterval: 1500,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
   });
 
   const { data: currencies } = useQuery<Currency[]>({
     queryKey: ["/api/currencies"],
+    refetchInterval: 1500,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
   });
 
   // Query for team portfolio to get startup details
   const { data: teamPortfolio } = useQuery<TeamPortfolio>({
     queryKey: [`/api/teams/${selectedTeam?.id}/portfolio`],
     enabled: !!selectedTeam && isStartupListDialogOpen,
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
   });
 
   const stockForm = useForm({

@@ -11,6 +11,8 @@ export function StartupDesk({ teamId }: StartupDeskProps) {
   const { data: portfolio, isLoading } = useQuery<TeamPortfolio>({
     queryKey: ["/api/teams", teamId, "portfolio"],
     queryFn: () => getTeamPortfolio(teamId),
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
   });
 
   if (isLoading) {

@@ -25,6 +25,9 @@ export function PortfolioOverview() {
   
   const { data: teams, isLoading: teamsLoading } = useQuery<Team[]>({
     queryKey: ["/api/teams"],
+    refetchInterval: 1500,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
   });
 
   const unassignStockMutation = useMutation({
@@ -113,6 +116,9 @@ export function PortfolioOverview() {
       return Promise.all(portfolioPromises);
     },
     enabled: !!teams,
+    refetchInterval: 1500,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
   });
 
   if (teamsLoading || portfoliosLoading) {

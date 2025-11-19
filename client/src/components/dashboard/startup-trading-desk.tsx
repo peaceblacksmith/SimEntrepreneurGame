@@ -50,6 +50,8 @@ export default function StartupTradingDesk({ onTabChange }: StartupTradingDeskPr
   const { data: portfolio, isLoading: portfolioLoading } = useQuery<TeamPortfolioResponse>({
     queryKey: [`/api/teams/${teamId}/portfolio`],
     enabled: !!teamId,
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
   });
 
   if (portfolioLoading) {

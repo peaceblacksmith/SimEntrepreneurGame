@@ -14,11 +14,16 @@ interface HeaderProps {
 export function Header({ selectedTeamId, onTeamChange }: HeaderProps) {
   const { data: teams } = useQuery<Team[]>({
     queryKey: ["/api/teams"],
+    refetchInterval: 1500,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
   });
 
   const { data: portfolio } = useQuery<TeamPortfolio>({
     queryKey: ["/api/teams", selectedTeamId, "portfolio"],
     queryFn: () => getTeamPortfolio(selectedTeamId),
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
   });
 
   return (

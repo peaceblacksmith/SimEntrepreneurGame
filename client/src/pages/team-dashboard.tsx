@@ -36,6 +36,8 @@ export default function TeamDashboard() {
       return getTeamPortfolio(teamId);
     },
     enabled: !!teamId && !!storedTeamId,
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
   });
 
   const handleLogout = () => {
