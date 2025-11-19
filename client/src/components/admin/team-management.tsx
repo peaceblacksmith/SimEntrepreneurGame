@@ -201,7 +201,7 @@ export function TeamManagement() {
     setIsDialogOpen(true);
   };
 
-  const handleEditStartup = (startup: TeamStartup) => {
+    const handleEditStartup = (startup: TeamStartup) => {
     setEditingStartup(startup);
     setManagementType("startup");
     startupForm.reset({
@@ -212,28 +212,25 @@ export function TeamManagement() {
       industry: startup.industry || "",
       riskLevel: startup.riskLevel || "",
     });
-
-    });
     setIsStartupListDialogOpen(false);
     setIsDialogOpen(true);
   };
 
   const handleSellStartup = async (startup: TeamStartup) => {
-  const startupValue = parseFloat(startup.value).toLocaleString("tr-TR", {
-    minimumFractionDigits: 2,
-  });
+    const startupValue = parseFloat(startup.value).toLocaleString("tr-TR", {
+      minimumFractionDigits: 2,
+    });
 
-  const startupName = startup?.name || "Girişim";
+    const startupName = startup?.name || "Girişim";
 
-  const message =
-    `${startupName} girişimini satmak istediğinizden emin misiniz?\n\n` +
-    `₺${startupValue} takımın nakit bakiyesine eklenecek.`;
+    const message =
+      `${startupName} girişimini satmak istediğinizden emin misiniz?\n\n` +
+      `₺${startupValue} takımın nakit bakiyesine eklenecek.`;
 
-  if (window.confirm(message)) {
-    deleteStartupMutation.mutate(startup.id);
-  }
-};
-
+    if (window.confirm(message)) {
+      deleteStartupMutation.mutate(startup.id);
+    }
+  };
 
   const onSubmitStock = (data: z.infer<typeof teamStockFormSchema>) => {
     createStockMutation.mutate(data);
@@ -252,6 +249,7 @@ export function TeamManagement() {
       createStartupMutation.mutate(data);
     }
   };
+
 
   if (teamsLoading) {
     return <div>Takımlar yükleniyor...</div>;
@@ -312,8 +310,17 @@ export function TeamManagement() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>
-              {selectedTeam?.name ?? "Takım"} - Girişim Yönetimi
+ 
+              {selectedTeam?.name ?? "Takım"} Yönetimi - {managementType === "stocks"
+                ? "Hisseler"
+                : managementType === "currencies"
+                ? "Dövizler"
+                : editingStartup
+                ? "Girişim Düzenle"
+              : "Yeni Girişim"}
+
             </DialogTitle>
+
           </DialogHeader>
           
           <div className="space-y-4">
