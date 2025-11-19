@@ -107,7 +107,7 @@ export function CompanyManagement() {
       toast({ title: "Company deleted successfully" });
     },
     onError: () => {
-      toast({ title: "Failed to delete company", variant: "destructive" });
+      toast({ title: "Failed to delete company.", variant: "destructive" });
     },
   });
 
