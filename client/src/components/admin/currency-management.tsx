@@ -26,7 +26,7 @@ const currencyFormSchema = z.object({
       const n = parseFloat(val);
       return !isNaN(n) && n > 0;
     }, "Rate must be a positive number"),
-  logo: z.instanceof(FileList).optional(),
+  logo: z.any().optional(),
 });
 
 type CurrencyFormData = z.infer<typeof currencyFormSchema>;
