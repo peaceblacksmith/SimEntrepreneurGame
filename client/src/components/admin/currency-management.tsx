@@ -118,6 +118,8 @@ export function CurrencyManagement() {
   });
 
   const onSubmit = (data: CurrencyFormData) => {
+    console.log("submit çalıltı", data);
+    
     if (editingCurrency) {
       updateMutation.mutate({ id: editingCurrency.id, data });
     } else {
