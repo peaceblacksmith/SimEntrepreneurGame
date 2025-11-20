@@ -286,75 +286,88 @@ currency,İsviçre Frangı,38.54`;
     setCurrencyUpdates([]);
   };
 
-  const parseCSV = (text: string): { stocks: PriceUpdate[]; currencies: PriceUpdate[] } => {
-    const lines = text.trim().split('\n');
-    const stocks: PriceUpdate[] = [];
-    const currencies: PriceUpdate[] = [];
+ const parseCSV = (text: string): { stocks: PriceUpdate[]; currencies: PriceUpdate[] } => {
+  console.log('🔥 USING FIXED VERSION - v1.0.2'); // ADD THIS LINE
+  
+  const lines = text.trim().split('\n');
+  const stocks: PriceUpdate[] = [];
+  const currencies: PriceUpdate[] = [];
+  
+  const dataLines = lines.filter(line => 
+    line.toLowerCase().includes('stock,') || 
+    line.toLowerCase().includes('currency,')
+  );
 
-    const dataLines = lines.filter(line => 
-      line.toLowerCase().includes('stock,') || 
-      line.toLowerCase().includes('currency,')
-    );
+  console.log('📊 Processing lines:', dataLines.length); // ADD THIS LINE
 
-    for (const line of dataLines) {
-      const [type, nameStr, priceStr] = line.split(',').map(s => s.trim());
+  for (const line of dataLines) {
+    const [type, nameStr, priceStr] = line.split(',').map(s => s.trim());
+    
+    if (!type || !nameStr || !priceStr) continue;
+    const price = parseFloat(priceStr);
+
+    if (type.toLowerCase() === 'stock' || type.toLowerCase() === 'company') {
+      console.log('🔍 Searching for company:', nameStr); // ADD THIS LINE
+      console.log('📦 Companies array:', companies); // ADD THIS LINE
       
-      if (!type || !nameStr || !priceStr) continue;
-
-      const price = parseFloat(priceStr);
-
-      if (type.toLowerCase() === 'stock' || type.toLowerCase() === 'company') {
-        const company = companies?.find(c => c?.name?.toLowerCase() === nameStr.toLowerCase());
-        
-        // ✅ SAFETY CHECK: Only access properties if company exists
-        if (company && !isNaN(price) && price > 0) {
-          stocks.push({
-            id: company.id,
-            name: company.name,
-            currentPrice: company.price,
-            newPrice: price.toFixed(2),
-            valid: true
-          });
-        } else {
-          // Handle error case safely
-          stocks.push({
-            id: 0,
-            name: nameStr,
-            currentPrice: company?.price || "0.00",
-            newPrice: priceStr,
-            valid: false,
-            error: company ? "Geçersiz fiyat" : "Şirket bulunamadı"
-          });
-        }
-      } else if (type.toLowerCase() === 'currency') {
-        const foundCurrency = currencies?.find(c => c?.name?.toLowerCase() === nameStr.toLowerCase());
-        
-        // ✅ SAFETY CHECK: Only access properties if currency exists
-        if (foundCurrency && !isNaN(price) && price > 0) {
-          currencies.push({
-            id: foundCurrency.id,
-            name: foundCurrency.name,
-            currentPrice: String(foundCurrency.rate),
-            newPrice: price.toFixed(4),
-            valid: true
-          });
-        } else {
-          // Handle error case safely
-          currencies.push({
-            id: 0,
-            name: nameStr,
-            currentPrice: foundCurrency?.rate ? String(foundCurrency.rate) : "0.0000",
-            newPrice: priceStr,
-            valid: false,
-            error: foundCurrency ? "Geçersiz kur" : "Döviz bulunamadı"
-          });
-        }
+      const company = companies?.find(c => c?.name?.toLowerCase() === nameStr.toLowerCase());
+      
+      console.log('✅ Found company:', company); // ADD THIS LINE
+      
+      // ✅ SAFETY CHECK: Only access properties if company exists
+      if (company && !isNaN(price) && price > 0) {
+        stocks.push({
+          id: company.id,
+          name: company.name,
+          currentPrice: company.price,
+          newPrice: price.toFixed(2),
+          valid: true
+        });
+      } else {
+        // Handle error case safely
+        stocks.push({
+          id: 0,
+          name: nameStr,
+          currentPrice: company?.price || "0.00",
+          newPrice: priceStr,
+          valid: false,
+          error: company ? "Geçersiz fiyat" : "Şirket bulunamadı"
+        });
+      }
+    } else if (type.toLowerCase() === 'currency') {
+      console.log('🔍 Searching for currency:', nameStr); // ADD THIS LINE
+      console.log('💱 Currencies array:', currencies); // ADD THIS LINE
+      
+      const foundCurrency = currencies?.find(c => c?.name?.toLowerCase() === nameStr.toLowerCase());
+      
+      console.log('✅ Found currency:', foundCurrency); // ADD THIS LINE
+      
+      // ✅ SAFETY CHECK: Only access properties if currency exists
+      if (foundCurrency && !isNaN(price) && price > 0) {
+        currencies.push({
+          id: foundCurrency.id,
+          name: foundCurrency.name,
+          currentPrice: String(foundCurrency.rate),
+          newPrice: price.toFixed(4),
+          valid: true
+        });
+      } else {
+        // Handle error case safely
+        currencies.push({
+          id: 0,
+          name: nameStr,
+          currentPrice: foundCurrency?.rate ? String(foundCurrency.rate) : "0.0000",
+          newPrice: priceStr,
+          valid: false,
+          error: foundCurrency ? "Geçersiz kur" : "Döviz bulunamadı"
+        });
       }
     }
+  }
 
-    return { stocks, currencies };
-  };
-
+  console.log('✨ Final results - Stocks:', stocks.length, 'Currencies:', currencies.length); // ADD THIS LINE
+  return { stocks, currencies };
+};
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedFile = event.target.files?.[0];
     if (!uploadedFile) return;
