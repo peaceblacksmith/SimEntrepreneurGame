@@ -104,7 +104,7 @@ currency,İsviçre Frangı,38.54`;
         buyPrice: currency.rate,
         sellPrice: currency.sellRate,
         originalBuyPrice: currency.rate,
-        originalSellPrice: currency.sellRate,
+        originalSellRate: currency.sellRate,
         hasChanges: false,
         buyPriceValid: true,
         sellPriceValid: true,
@@ -304,7 +304,9 @@ currency,İsviçre Frangı,38.54`;
       const price = parseFloat(priceStr);
 
       if (type.toLowerCase() === 'stock' || type.toLowerCase() === 'company') {
-        const company = companies?.find(c => c.name.toLowerCase() === nameStr.toLowerCase());
+        const company = companies?.find(c => c?.name?.toLowerCase() === nameStr.toLowerCase());
+        
+        // ✅ SAFETY CHECK: Only access properties if company exists
         if (company && !isNaN(price) && price > 0) {
           stocks.push({
             id: company.id,
@@ -314,6 +316,7 @@ currency,İsviçre Frangı,38.54`;
             valid: true
           });
         } else {
+          // Handle error case safely
           stocks.push({
             id: 0,
             name: nameStr,
@@ -324,7 +327,9 @@ currency,İsviçre Frangı,38.54`;
           });
         }
       } else if (type.toLowerCase() === 'currency') {
-        const foundCurrency = currencies?.find(c => c.name.toLowerCase() === nameStr.toLowerCase());
+        const foundCurrency = currencies?.find(c => c?.name?.toLowerCase() === nameStr.toLowerCase());
+        
+        // ✅ SAFETY CHECK: Only access properties if currency exists
         if (foundCurrency && !isNaN(price) && price > 0) {
           currencies.push({
             id: foundCurrency.id,
@@ -334,6 +339,7 @@ currency,İsviçre Frangı,38.54`;
             valid: true
           });
         } else {
+          // Handle error case safely
           currencies.push({
             id: 0,
             name: nameStr,
