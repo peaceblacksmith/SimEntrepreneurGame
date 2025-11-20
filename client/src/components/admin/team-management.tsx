@@ -266,7 +266,7 @@ export function TeamManagement() {
           <Card key={team.id}>
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
-                {team?.name ?? "İsimsiz takım"}
+                {team.name}
                 <div className="flex space-x-2">
                   <Button
                     variant="outline"
@@ -310,17 +310,8 @@ export function TeamManagement() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>
- 
-              {selectedTeam?.name ?? "Takım"} Yönetimi - {managementType === "stocks"
-                ? "Hisseler"
-                : managementType === "currencies"
-                ? "Dövizler"
-                : editingStartup
-                ? "Girişim Düzenle"
-              : "Yeni Girişim"}
-
+              {selectedTeam?.name || "Takım"} - Girişim Yönetimi
             </DialogTitle>
-
           </DialogHeader>
           
           <div className="space-y-4">
@@ -330,7 +321,7 @@ export function TeamManagement() {
                   <CardTitle className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <Briefcase className="h-5 w-5" />
-                      {teamPortfolio?.startup?.name ?? "İsimsiz girişim"}
+                      {teamPortfolio.startup.name}
                     </div>
                     <div className="flex gap-2">
                       <Button
@@ -413,7 +404,13 @@ export function TeamManagement() {
         <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle>
-              {selectedTeam?} Yönetimi - {managementType === "stocks" ? "Hisseler" : managementType === "currencies" ? "Dövizler" : editingStartup ? "Girişim Düzenle" : "Yeni Girişim"}
+              {selectedTeam?.name || "Takım"} Yönetimi - {managementType === "stocks"
+                ? "Hisseler"
+                : managementType === "currencies"
+                ? "Dövizler"
+                : editingStartup
+                ? "Girişim Düzenle"
+                : "Yeni Girişim"}
             </DialogTitle>
           </DialogHeader>
           
@@ -435,7 +432,7 @@ export function TeamManagement() {
                         <SelectContent>
                           {companies?.map((company) => (
                             <SelectItem key={company.id} value={company.id.toString()}>
-                              {company?.name ?? "İsimsiz şirket"}
+                              {company.name}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -482,7 +479,7 @@ export function TeamManagement() {
                         <SelectContent>
                           {currencies?.map((currency) => (
                             <SelectItem key={currency.id} value={currency.id.toString()}>
-                              {currency?.name ?? "Döviz"} ({currency?.code ?? ""})
+                              {currency.name} ({currency.code})
                             </SelectItem>
                           ))}
                         </SelectContent>
