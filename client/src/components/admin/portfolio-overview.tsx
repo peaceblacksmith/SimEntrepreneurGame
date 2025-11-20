@@ -230,36 +230,45 @@ export function PortfolioOverview() {
                 <TabsContent value="stocks" className="mt-4">
                   {portfolio.stocks.length > 0 ? (
                     <div className="space-y-2">
-                      {portfolio.stocks.map((stock) => (
-                        <div key={stock.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                          <div className="flex items-center gap-3">
-                            <img 
-                              src={stock.company.logoUrl || "/api/placeholder/32/32"} 
-                              alt={stock.company.name}
-                              className="w-8 h-8 rounded object-cover"
-                            />
-                            <div>
-                              <p className="font-medium">{stock.company.name}</p>
-                              <p className="text-sm text-muted-foreground">{stock.company.symbol}</p>
+                      {portfolio.stocks.map((stock) => {
+                        const companyName = stock.company?.name ?? "Silinen Şirket";
+                        const companySymbol = stock.company?.symbol ?? "-";
+                        const logoSrc = stock.company?.logoUrl || "/api/placeholder/32/32";
+                        const sellValue = stock.company?.sellPrice
+                          ? (parseFloat(stock.company.sellPrice) * stock.shares).toLocaleString('tr-TR', { minimumFractionDigits: 2 })
+                          : null;
+
+                        return (
+                          <div key={stock.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                            <div className="flex items-center gap-3">
+                              <img 
+                                src={logoSrc} 
+                                alt={companyName}
+                                className="w-8 h-8 rounded object-cover"
+                              />
+                              <div>
+                                <p className="font-medium">{companyName}</p>
+                                <p className="text-sm text-muted-foreground">{companySymbol}</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <div className="text-right">
+                                <p className="font-medium">{stock.shares} adet</p>
+                                <p className="text-sm text-muted-foreground">
+                                  {sellValue ? `₺${sellValue} satış değeri` : "Silinen şirket"}
+                                </p>
+                              </div>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handleSellStock(stock, portfolio.team.id)}
+                              >
+                                <Minus className="h-4 w-4" />
+                              </Button>
                             </div>
                           </div>
-                          <div className="flex items-center gap-3">
-                            <div className="text-right">
-                              <p className="font-medium">{stock.shares} adet</p>
-                              <p className="text-sm text-muted-foreground">
-                                ₺{(parseFloat(stock.company.sellPrice) * stock.shares).toLocaleString('tr-TR', { minimumFractionDigits: 2 })} satış değeri
-                              </p>
-                            </div>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => handleSellStock(stock, portfolio.team.id)}
-                            >
-                              <Minus className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   ) : (
                     <p className="text-center text-muted-foreground py-4">Hisse senedi yok</p>
@@ -269,36 +278,47 @@ export function PortfolioOverview() {
                 <TabsContent value="currencies" className="mt-4">
                   {portfolio.currencies.length > 0 ? (
                     <div className="space-y-2">
-                      {portfolio.currencies.map((currency) => (
-                        <div key={currency.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                          <div className="flex items-center gap-3">
-                            <img 
-                              src={currency.currency.logoUrl || "/api/placeholder/32/32"} 
-                              alt={currency.currency.name}
-                              className="w-8 h-8 rounded object-cover"
-                            />
-                            <div>
-                              <p className="font-medium">{currency.currency.name}</p>
-                              <p className="text-sm text-muted-foreground">{currency.currency.code}</p>
+                      {portfolio.currencies.map((currency) => {
+                        const currencyInfo = currency.currency;
+                        const currencyName = currencyInfo?.name ?? "Silinen Döviz";
+                        const currencyCode = currencyInfo?.code ?? "";
+                        const logoSrc = currencyInfo?.logoUrl || "/api/placeholder/32/32";
+                        const sellRate = currencyInfo?.sellRate ? parseFloat(currencyInfo.sellRate) : null;
+                        const sellValue = sellRate
+                          ? (parseFloat(currency.amount) * sellRate).toLocaleString('tr-TR', { minimumFractionDigits: 2 })
+                          : null;
+
+                        return (
+                          <div key={currency.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                            <div className="flex items-center gap-3">
+                              <img 
+                                src={logoSrc} 
+                                alt={currencyName}
+                                className="w-8 h-8 rounded object-cover"
+                              />
+                              <div>
+                                <p className="font-medium">{currencyName}</p>
+                                <p className="text-sm text-muted-foreground">{currencyCode}</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <div className="text-right">
+                                <p className="font-medium">{parseFloat(currency.amount).toLocaleString('tr-TR', { minimumFractionDigits: 2 })}</p>
+                                <p className="text-sm text-muted-foreground">
+                                  {sellValue ? `₺${sellValue} satış değeri` : "Silinen döviz"}
+                                </p>
+                              </div>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handleSellCurrency(currency, portfolio.team.id)}
+                              >
+                                <Minus className="h-4 w-4" />
+                              </Button>
                             </div>
                           </div>
-                          <div className="flex items-center gap-3">
-                            <div className="text-right">
-                              <p className="font-medium">{parseFloat(currency.amount).toLocaleString('tr-TR', { minimumFractionDigits: 2 })}</p>
-                              <p className="text-sm text-muted-foreground">
-                                ₺{(parseFloat(currency.amount) * parseFloat(currency.currency.sellRate)).toLocaleString('tr-TR', { minimumFractionDigits: 2 })} satış değeri
-                              </p>
-                            </div>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => handleSellCurrency(currency, portfolio.team.id)}
-                            >
-                              <Minus className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   ) : (
                     <p className="text-center text-muted-foreground py-4">Döviz yok</p>
@@ -366,20 +386,25 @@ export function PortfolioOverview() {
               <div className="p-4 bg-muted rounded-lg">
                 <div className="flex items-center gap-3">
                   <img 
-                    src={sellDialog.type === 'stock' ? 
-                      sellDialog.item.company.logoUrl : 
-                      sellDialog.item.currency.logoUrl} 
+                    src={
+                      sellDialog.type === 'stock'
+                        ? sellDialog.item.company?.logoUrl || "/api/placeholder/40/40"
+                        : sellDialog.item.currency?.logoUrl || "/api/placeholder/40/40"
+                    } 
                     alt=""
                     className="w-10 h-10 rounded object-cover"
                   />
                   <div>
                     <h4 className="font-medium">
-                      {sellDialog.type === 'stock' ? 
-                        sellDialog.item.company.name : 
-                        sellDialog.item.currency.name}
+                      {sellDialog.type === 'stock'
+                        ? sellDialog.item.company?.name ?? "Silinen Şirket"
+                        : sellDialog.item.currency?.name ?? "Silinen Döviz"}
                     </h4>
                     <p className="text-sm text-muted-foreground">
-                      Mevcut: {sellDialog.maxAmount} {sellDialog.type === 'stock' ? 'adet' : sellDialog.item.currency.code}
+                      Mevcut: {sellDialog.maxAmount}{" "}
+                      {sellDialog.type === 'stock'
+                        ? 'adet'
+                        : sellDialog.item.currency?.code ?? ""}
                     </p>
                   </div>
                 </div>
@@ -400,8 +425,8 @@ export function PortfolioOverview() {
                 />
                 <p className="text-xs text-muted-foreground">
                   Satış değeri: ₺{sellDialog.type === 'stock' ? 
-                    (parseFloat(sellAmount || "0") * parseFloat(sellDialog.item.company.sellPrice)).toLocaleString('tr-TR', { minimumFractionDigits: 2 }) :
-                    (parseFloat(sellAmount || "0") * parseFloat(sellDialog.item.currency.sellRate)).toLocaleString('tr-TR', { minimumFractionDigits: 2 })
+                    (parseFloat(sellAmount || "0") * parseFloat(sellDialog.item.company?.sellPrice ?? "0")).toLocaleString('tr-TR', { minimumFractionDigits: 2 }) :
+                    (parseFloat(sellAmount || "0") * parseFloat(sellDialog.item.currency?.sellRate ?? "0")).toLocaleString('tr-TR', { minimumFractionDigits: 2 })
                   }
                 </p>
               </div>
