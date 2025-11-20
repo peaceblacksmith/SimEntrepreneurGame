@@ -205,29 +205,30 @@ export default function StockMarketDesk({ onTabChange }: StockMarketDeskProps) {
 
               <div className="space-y-4 mb-6">
                 {portfolio?.stocks && portfolio.stocks.length > 0 ? (
-                  portfolio.stocks.map((stock, index) => (
+                  portfolio.stocks.map((stock, index) => {
+                    const companyName = stock.company?.name ?? "Silinen Şirket";
+                    const logoSrc = stock.company?.logoUrl ?? "/api/placeholder/32/32";
+                    const price = stock.company?.price ? Math.round(parseFloat(stock.company.price)) : null;
+
+                    return (
                     <div key={index} className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div 
                           className="w-8 h-8 rounded flex items-center justify-center overflow-hidden"
                           style={{ backgroundColor: '#e3dfd6' }}
                         >
-                          {stock.company.logoUrl ? (
-                            <img 
-                              src={stock.company.logoUrl} 
-                              alt={`${stock.company.name} logo`}
-                              className="w-full h-full object-cover rounded"
-                            />
-                          ) : (
-                            <div className="w-full h-full" />
-                          )}
+                          <img 
+                            src={logoSrc} 
+                            alt={`${companyName} logo`}
+                            className="w-full h-full object-cover rounded"
+                          />
                         </div>
                         <div>
                           <div 
                             className="[font-family:'Bowlby_One',Helvetica] font-normal"
                             style={{ color: '#e3dfd6' }}
                           >
-                            {stock.company.name}
+                            {companyName}
                           </div>
                           <div 
                             className="[font-family:'Inter',Helvetica] text-sm"
@@ -241,10 +242,11 @@ export default function StockMarketDesk({ onTabChange }: StockMarketDeskProps) {
                         className="px-3 py-1 rounded [font-family:'Bowlby_One',Helvetica] font-normal"
                         style={{ backgroundColor: '#aa95c7', color: '#1b1b1b' }}
                       >
-                        ₺{Math.round(parseFloat(stock.company.price))}
+                        {price !== null ? `₺${price}` : "—"}
                       </div>
                     </div>
-                  ))
+                    );
+                  })
                 ) : (
                   <div 
                     className="text-center py-8 [font-family:'Inter',Helvetica]"
