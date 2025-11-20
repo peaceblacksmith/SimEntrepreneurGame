@@ -221,46 +221,50 @@ export default function CurrencyTradingDesk({ onTabChange }: CurrencyTradingDesk
 
               <div className="space-y-4 mb-6">
                 {portfolio?.currencies && portfolio.currencies.length > 0 ? (
-                  portfolio.currencies.map((currency, index) => (
-                    <div key={index} className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div 
-                          className="w-8 h-8 rounded flex items-center justify-center overflow-hidden"
-                          style={{ backgroundColor: '#e3dfd6' }}
-                        >
-                          {currency.currency.logoUrl ? (
+                  portfolio.currencies.map((currency, index) => {
+                    const currencyInfo = currency.currency;
+                    const currencyName = currencyInfo?.name ?? "Silinen Döviz";
+                    const currencyCode = currencyInfo?.code ?? "";
+                    const logoSrc = currencyInfo?.logoUrl || "/api/placeholder/32/32";
+                    const rateValue = currencyInfo?.rate ? Math.round(parseFloat(currencyInfo.rate)) : null;
+
+                    return (
+                      <div key={index} className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <div 
+                            className="w-8 h-8 rounded flex items-center justify-center overflow-hidden"
+                            style={{ backgroundColor: '#e3dfd6' }}
+                          >
                             <img 
-                              src={currency.currency.logoUrl} 
-                              alt={`${currency.currency.name} logo`}
+                              src={logoSrc} 
+                              alt={`${currencyName} logo`}
                               className="w-full h-full object-cover rounded"
                             />
-                          ) : (
-                            <div className="w-full h-full" />
-                          )}
-                        </div>
-                        <div>
-                          <div 
-                            className="[font-family:'Bowlby_One',Helvetica] font-normal"
-                            style={{ color: '#e3dfd6' }}
-                          >
-                            {currency.currency.name}
                           </div>
-                          <div 
-                            className="[font-family:'Inter',Helvetica] text-sm"
-                            style={{ color: '#e3dfd6' }}
-                          >
-                            {parseFloat(currency.amount).toFixed(2)} {currency.currency.code}
+                          <div>
+                            <div 
+                              className="[font-family:'Bowlby_One',Helvetica] font-normal"
+                              style={{ color: '#e3dfd6' }}
+                            >
+                              {currencyName}
+                            </div>
+                            <div 
+                              className="[font-family:'Inter',Helvetica] text-sm"
+                              style={{ color: '#e3dfd6' }}
+                            >
+                              {parseFloat(currency.amount).toFixed(2)} {currencyCode}
+                            </div>
                           </div>
                         </div>
+                        <div 
+                          className="px-3 py-1 rounded [font-family:'Bowlby_One',Helvetica] font-normal"
+                          style={{ backgroundColor: '#aa95c7', color: '#1b1b1b' }}
+                        >
+                          {rateValue !== null ? `₺${rateValue}` : "Silinen döviz"}
+                        </div>
                       </div>
-                      <div 
-                        className="px-3 py-1 rounded [font-family:'Bowlby_One',Helvetica] font-normal"
-                        style={{ backgroundColor: '#aa95c7', color: '#1b1b1b' }}
-                      >
-                        ₺{Math.round(parseFloat(currency.currency.rate))}
-                      </div>
-                    </div>
-                  ))
+                    );
+                  })
                 ) : (
                   <div 
                     className="text-center py-8 [font-family:'Inter',Helvetica]"
