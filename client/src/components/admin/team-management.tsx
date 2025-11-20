@@ -413,7 +413,6 @@ export function TeamManagement() {
                 : "Yeni Girişim"}
             </DialogTitle>
           </DialogHeader>
-          
           {managementType === "stocks" && (
             <Form {...stockForm}>
               <form onSubmit={stockForm.handleSubmit(onSubmitStock)} className="space-y-4">
