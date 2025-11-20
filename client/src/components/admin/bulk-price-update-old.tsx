@@ -144,7 +144,10 @@ currency,İsviçre Frangı,38.54`;
       const price = parseFloat(priceStr);
 
       if (type.toLowerCase() === 'stock' || type.toLowerCase() === 'company') {
-        const company = companies?.find(c => c.name.toLowerCase() === nameStr.toLowerCase());
+        // ✅ FIX: Added optional chaining to prevent crash
+        const company = companies?.find(c => c?.name?.toLowerCase() === nameStr.toLowerCase());
+        
+        // ✅ Only access company properties if company exists
         if (company && !isNaN(price) && price > 0) {
           stocks.push({
             id: company.id,
@@ -164,7 +167,10 @@ currency,İsviçre Frangı,38.54`;
           });
         }
       } else if (type.toLowerCase() === 'currency') {
-        const currency = currencies?.find(c => c.name.toLowerCase() === nameStr.toLowerCase());
+        // ✅ FIX: Added optional chaining to prevent crash
+        const currency = currencies?.find(c => c?.name?.toLowerCase() === nameStr.toLowerCase());
+        
+        // ✅ Only access currency properties if currency exists
         if (currency && !isNaN(price) && price > 0) {
           currencies.push({
             id: currency.id,
