@@ -38,32 +38,46 @@ export function CurrencyDesk({ teamId }: CurrencyDeskProps) {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {portfolio?.currencies.map((currency) => (
-                <div key={currency.id} className="flex items-center justify-between py-3 border-b border-slate-100 last:border-b-0">
-                  <div className="flex items-center space-x-3">
-                    <img 
-                      src={currency.currency.logoUrl || "/api/placeholder/40/40"} 
-                      alt={currency.currency.name}
-                      className="w-10 h-10 rounded-lg object-cover"
-                    />
-                    <div>
-                      <div className="font-medium text-slate-900">{currency.currency.name} ({currency.currency.code})</div>
-                      <div className="text-sm text-slate-600">
-                        {currency.currency.code === "JPY" ? "¥" : currency.currency.code === "EUR" ? "€" : currency.currency.code === "GBP" ? "£" : "$"}
-                        {parseFloat(currency.amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              {portfolio?.currencies.map((currency) => {
+                const currencyInfo = currency.currency;
+                const currencyName = currencyInfo?.name ?? "Silinen Döviz";
+                const currencyCode = currencyInfo?.code ?? "";
+                const logoSrc = currencyInfo?.logoUrl || "/api/placeholder/40/40";
+                const rateValue = currencyInfo?.rate ? parseFloat(currencyInfo.rate) : null;
+                const displaySymbol =
+                  currencyCode === "JPY" ? "¥" :
+                  currencyCode === "EUR" ? "€" :
+                  currencyCode === "GBP" ? "£" : "$";
+
+                return (
+                  <div key={currency.id} className="flex items-center justify-between py-3 border-b border-slate-100 last:border-b-0">
+                    <div className="flex items-center space-x-3">
+                      <img 
+                        src={logoSrc} 
+                        alt={currencyName}
+                        className="w-10 h-10 rounded-lg object-cover"
+                      />
+                      <div>
+                        <div className="font-medium text-slate-900">{currencyName} {currencyCode && `(${currencyCode})`}</div>
+                        <div className="text-sm text-slate-600">
+                          {displaySymbol}
+                          {parseFloat(currency.amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-medium text-slate-900">
+                        {rateValue !== null ? 
+                          `₺${(parseFloat(currency.amount) * rateValue).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` :
+                          "Silinen döviz"}
+                      </div>
+                      <div className="text-sm text-green-600">
+                        {rateValue !== null ? `${rateValue.toFixed(currencyCode === "JPY" ? 4 : 3)} TL` : ""}
                       </div>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="font-medium text-slate-900">
-                      ₺{(parseFloat(currency.amount) * parseFloat(currency.currency.rate)).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </div>
-                    <div className="text-sm text-green-600">
-                      {parseFloat(currency.currency.rate).toFixed(currency.currency.code === "JPY" ? 4 : 3)} TL
-                    </div>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
               
               {portfolio?.currencies.length === 0 && (
                 <div className="text-center py-8 text-slate-500">
